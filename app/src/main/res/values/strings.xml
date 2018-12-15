@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">MoneyApplication</string>
+    <string name="full_name">Enter Your Full Name</string>
+    <string name="phone">Enter Your Phone</string>
+    <string name="address">Enter Your Address</string>
+    <string name="identity_card_number">Enter Your Identity Card Number</string>
+    <string name="password">Enter Password</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="sign_up">Sign Up</string>
 </resources>
