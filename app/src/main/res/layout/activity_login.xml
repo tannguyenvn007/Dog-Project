@@ -57,6 +57,7 @@
             android:buttonTint="@color/white"
             android:checked="true"/>
         <TextView
+            android:id="@+id/login_txtForgotPass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Forget Password"
@@ -73,6 +74,7 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/login_btnLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Log In"
@@ -85,6 +87,7 @@
         android:background="@drawable/shapelogin"/>
 
     <Button
+        android:id="@+id/login_btnRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Sign Up"
