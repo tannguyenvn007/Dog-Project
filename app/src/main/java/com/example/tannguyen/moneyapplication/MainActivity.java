@@ -1,6 +1,8 @@
 package com.example.tannguyen.moneyapplication;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -40,6 +42,27 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, HistoryUser.class);
                 startActivity(i);
+            }
+        });
+
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()){
+                    case R.id.navigation_home:
+                        break;
+                    case R.id.navigation_profile:
+                        Intent i = new Intent(MainActivity.this,HistoryUser.class);
+                        startActivity(i);
+                        break;
+                    case R.id.navigation_history:
+                        Intent a = new Intent(MainActivity.this,History.class);
+                        startActivity(a);
+                        break;
+
+                }
+                return false;
             }
         });
     }
