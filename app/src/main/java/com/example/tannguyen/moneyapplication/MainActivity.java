@@ -19,48 +19,27 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        btnNap = (Button)findViewById(R.id.main_btnNap);
-        btnHistory = (Button)findViewById(R.id.main_btnHistory);
-        btnProfile = (Button)findViewById(R.id.main_btnProfile);
-
-        btnNap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, TopUpWalletActivity.class);
-                startActivity(i);
-            }
-        });
-        btnHistory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, History.class);
-                startActivity(i);
-            }
-        });
-        btnProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, HistoryUser.class);
-                startActivity(i);
-            }
-        });
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+
+        Menu menu = navigation.getMenu();
+        MenuItem menuItem = menu.getItem(0);
+        menuItem.setChecked(true);
+
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()){
                     case R.id.navigation_home:
                         break;
-                    case R.id.navigation_profile:
-                        Intent i = new Intent(MainActivity.this,HistoryUser.class);
-                        startActivity(i);
-                        break;
                     case R.id.navigation_history:
                         Intent a = new Intent(MainActivity.this,History.class);
                         startActivity(a);
                         break;
-
+                    case R.id.navigation_wallet:
+                        Intent i = new Intent(MainActivity.this,TopUpWalletActivity.class);
+                        startActivity(i);
+                        break;
                 }
                 return false;
             }

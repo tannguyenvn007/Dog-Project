@@ -2,17 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/navigation_home"
-
-        android:title="Home" />
-    <item
-        android:id="@+id/navigation_profile"
-
-        android:title="Profile" />
-
+        android:title="Home"
+        android:icon="@drawable/home"
+        />
     <item
         android:id="@+id/navigation_history"
-
+        android:icon="@drawable/history"
         android:title="History" />
-
+    <item
+        android:id="@+id/navigation_wallet"
+        android:icon="@drawable/wallet"
+        android:title="Wallet" />
 
 </menu>
