@@ -37,34 +37,18 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <Button
-            android:id="@+id/main_btnHistory"
-            android:layout_width="wrap_content"
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/navigation"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Lich Su"
-            android:layout_alignParentLeft="true"
+            android:background="?android:attr/windowBackground"
             android:layout_alignParentBottom="true"
-            android:background="@drawable/button_border"
-            />
-        <Button
-            android:id="@+id/main_btnNap"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nap"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/button_border"
-            />
-        <Button
-            android:id="@+id/main_btnProfile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Profile"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/button_border"
-            />
+            app:itemBackground="@color/colorPrimary"
+            app:itemIconTint="@drawable/bottom_nav_colors"
+            app:itemTextColor="@drawable/bottom_nav_colors"
+            app:menu="@menu/navigation" />
     </RelativeLayout>
+
 
 
 
