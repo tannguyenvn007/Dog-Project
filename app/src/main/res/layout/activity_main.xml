@@ -27,6 +27,7 @@
         >
 
         <ImageView
+            android:id="@+id/main_scan"
             android:layout_width="400px"
             android:layout_height="400px"
             android:src="@drawable/qr_code_samp"
