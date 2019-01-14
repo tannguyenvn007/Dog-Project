@@ -9,5 +9,7 @@
     <string name="sign_up">Sign Up</string>
     <string name="save">Save</string>
     <string name="birthday">Your birthday</string>
+    <string name="email">Your email</string>
+
 
 </resources>

@@ -23,6 +23,7 @@
         android:background="@drawable/boderradius_blue"
         style="@style/register"
         />
+
     <EditText
         style="@style/register"
         android:id="@+id/register_etxtPhone"
@@ -66,6 +67,7 @@
         style="@style/register"
         />
     <Button
+        android:id="@+id/button_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/sign_up"
