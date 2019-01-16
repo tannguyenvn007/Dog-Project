@@ -27,12 +27,16 @@
         >
 
         <ImageView
-            android:id="@+id/main_scan"
-            android:layout_width="400px"
-            android:layout_height="400px"
-            android:src="@drawable/qr_code_samp"
-
+            android:id="@+id/QR_Image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             />
+        <Button
+            android:layout_weight="1"
+            android:id="@+id/generate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Generate" />
 
     </LinearLayout>
     <RelativeLayout

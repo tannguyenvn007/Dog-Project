@@ -51,7 +51,8 @@ public class Register extends AppCompatActivity {
 //
                     if (register_etxtPassword.getText().toString().equals(register_etxtConfirmPassword.getText().toString())){
                         actions.parseConnection(Register.this);
-                        boolean re = actions.register(Register.this, register_etxtFullName.getText().toString(),
+                        boolean re = actions.register(Register.this,
+                                register_etxtFullName.getText().toString(),
                                 register_etxtPassword.getText().toString(),
                                 register_etxtPhone.getText().toString(),
                                 register_etxtCardNumber.getText().toString(),

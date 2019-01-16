@@ -27,12 +27,14 @@ public class Actions {
         );
     }
 
-    public int login(final Context context, String username, String password){
+    public int login(final Context context, final String username, String password){
 
         ParseUser.logInInBackground(username, password, new LogInCallback() {
             public void done(ParseUser user, ParseException e) {
                 if (user != null) {
+                    Log.e("asasas", username);
                     Intent i = new Intent(context, MainActivity.class);
+                    i.putExtra("username",username);
                     context.startActivity(i);
                     ((Activity)context).finish();
                 } else {

@@ -3,6 +3,11 @@ package com.example.tannguyen.moneyapplication;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Point;
+import android.media.Image;
+import android.net.Uri;
+import android.os.Environment;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -10,17 +15,34 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.google.zxing.WriterException;
+
+import java.io.File;
+
+import androidmads.library.qrgenearator.QRGContents;
+import androidmads.library.qrgenearator.QRGEncoder;
+import androidmads.library.qrgenearator.QRGSaver;
 
 
 public class MainActivity extends AppCompatActivity {
-    Button btnNap, btnHistory, btnProfile;
+    String TAG = "GenerateQRCode";
     Actions actions = new Actions();
     boolean doubleBackToExitPressedOnce = false;
-
+    QRGEncoder qrgEncoder;
+    Bitmap bitmap;
+    String savePath = Environment.getExternalStorageDirectory().getPath() + "/QRCode/";
+    String inputValue;
+    ImageView qrImage;
+    Button btnGenerate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
         actions.parseConnection(MainActivity.this);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        qrImage = (ImageView)findViewById(R.id.QR_Image) ;
+        btnGenerate =(Button)findViewById(R.id.generate);
 
         Menu menu = navigation.getMenu();
         MenuItem menuItem = menu.getItem(0);
@@ -51,6 +75,55 @@ public class MainActivity extends AppCompatActivity {
                         break;
                 }
                 return false;
+            }
+        });
+        Intent intent = getIntent();
+        String username = intent.getStringExtra("username");
+        inputValue = username.toString().trim();
+        File f = new File(savePath+inputValue+".jpg");
+        if (f.isFile()){
+            qrImage.setImageURI(Uri.parse(savePath+inputValue+".jpg"));
+            btnGenerate.setVisibility(View.GONE);
+        }else{
+            btnGenerate.setVisibility(View.VISIBLE);
+        }
+
+
+        btnGenerate.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                boolean save;
+                String result;
+                Intent intent = getIntent();
+                String username = intent.getStringExtra("username");
+                inputValue = username.toString().trim();
+                if (inputValue.length() > 0){
+                    WindowManager manager = (WindowManager) getSystemService(WINDOW_SERVICE);
+                    Display display = manager.getDefaultDisplay();
+                    Point point = new Point();
+                    display.getSize(point);
+                    int width = point.x;
+                    int height = point.y;
+                    int smallerDimension = width < height ? width : height;
+                    smallerDimension = smallerDimension * 3 / 4;
+
+                    qrgEncoder = new QRGEncoder(inputValue,null,QRGContents.Type.TEXT,smallerDimension);
+                    try {
+                        bitmap = qrgEncoder.encodeAsBitmap();
+                        qrImage.setImageBitmap(bitmap);
+                        btnGenerate.setVisibility(View.GONE);
+                    } catch (WriterException e) {
+                        Log.v(TAG, e.toString());
+                    }
+                }
+                try {
+                    save = QRGSaver.save(savePath,inputValue,bitmap,QRGContents.ImageType.IMAGE_JPEG);
+                    result = save ? "Image Saved" : "Image Not Saved";
+                    Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
+                } catch (WriterException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
