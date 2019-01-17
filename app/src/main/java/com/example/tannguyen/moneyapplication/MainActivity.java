@@ -62,15 +62,19 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                Intent intent = getIntent();
+                String username = intent.getStringExtra("username");
                 switch (menuItem.getItemId()){
                     case R.id.navigation_home:
                         break;
                     case R.id.navigation_history:
                         Intent a = new Intent(MainActivity.this,History.class);
+                        a.putExtra("username",username);
                         startActivity(a);
                         break;
                     case R.id.navigation_wallet:
                         Intent i = new Intent(MainActivity.this,TopUpWalletActivity.class);
+                        i.putExtra("username",username);
                         startActivity(i);
                         break;
                 }
@@ -137,9 +141,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = getIntent();
+        String username = intent.getStringExtra("username");
         switch (item.getItemId()){
             case R.id.menProfile:
                 Intent i = new Intent(MainActivity.this, HistoryUser.class);
+                i.putExtra("username",username);
                 startActivity(i);
                 break;
             case R.id.menuSetting:

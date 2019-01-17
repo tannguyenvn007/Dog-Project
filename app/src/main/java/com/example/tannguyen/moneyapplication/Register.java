@@ -31,6 +31,7 @@ public class Register extends AppCompatActivity {
         register_etxtPhone = (EditText) findViewById(R.id.register_etxtPhone);
         register_etxtAddress = (EditText) findViewById(R.id.register_etxtAddress);
         register_etxtCardNumber = (EditText) findViewById(R.id.register_etxtCardNumber);
+        register_etxtemail = (EditText) findViewById(R.id.register_etxtEmail);
         register_etxtPassword = (EditText) findViewById(R.id.register_etxtPassword);
         register_etxtConfirmPassword = (EditText) findViewById(R.id.register_etxtConfirmPassword);
         button_register = (Button) findViewById(R.id.button_register);
@@ -45,7 +46,8 @@ public class Register extends AppCompatActivity {
                         || register_etxtAddress.getText().toString().equals("")
                         || register_etxtCardNumber.getText().toString().equals("")
                         || register_etxtPassword.getText().toString().equals("")
-                        || register_etxtConfirmPassword.getText().toString().equals("")){
+                        || register_etxtConfirmPassword.getText().toString().equals("")
+                        || register_etxtemail.getText().toString().equals("")){
                     Toast.makeText(Register.this,"All of filed is required.",Toast.LENGTH_SHORT).show();
                 }else {
 //
@@ -57,7 +59,8 @@ public class Register extends AppCompatActivity {
                                 register_etxtPhone.getText().toString(),
                                 register_etxtCardNumber.getText().toString(),
                                 register_etxtConfirmPassword.getText().toString(),
-                                register_etxtAddress.getText().toString());
+                                register_etxtAddress.getText().toString(),
+                                register_etxtemail.getText().toString());
 
 
                         if (re){

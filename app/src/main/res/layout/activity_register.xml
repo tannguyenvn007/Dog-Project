@@ -8,12 +8,21 @@
     android:background="@mipmap/back"
     >
 
-    <ImageView
+    <!--<ImageView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:src="@mipmap/tutor"-->
+        <!--android:layout_gravity="center"-->
+        <!--style="@style/logo_register"-->
+        <!--/>-->
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/tutor"
+        android:text="Register"
         android:layout_gravity="center"
-        style="@style/logo_register"
+        android:textColor="@color/white"
+        android:textSize="30dp"
+        android:textStyle="bold"
         />
     <EditText
         android:id="@+id/register_etxtFullName"
@@ -45,6 +54,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/identity_card_number"
+        android:background="@drawable/boderradius_blue"
+        style="@style/register"
+        />
+    <EditText
+        android:id="@+id/register_etxtEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:hint="Your Email"
         android:background="@drawable/boderradius_blue"
         style="@style/register"
         />
