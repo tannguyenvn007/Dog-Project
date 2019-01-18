@@ -23,11 +23,11 @@ public class History extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 Intent intent = getIntent();
-                String username = intent.getStringExtra("username");
+                String email = intent.getStringExtra("email");
                 switch (menuItem.getItemId()){
                     case R.id.navigation_home:
                         Intent i = new Intent(History.this,MainActivity.class);
-                        i.putExtra("username",username);
+                        i.putExtra("email",email);
                         startActivity(i);
                         finish();
                         break;
@@ -35,7 +35,7 @@ public class History extends AppCompatActivity {
                         break;
                     case R.id.navigation_wallet:
                         Intent a = new Intent(History.this,TopUpWalletActivity.class);
-                        a.putExtra("username",username);
+                        a.putExtra("email",email);
                         startActivity(a);
                         finish();
                         break;

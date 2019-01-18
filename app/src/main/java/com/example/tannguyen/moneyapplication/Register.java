@@ -28,10 +28,10 @@ public class Register extends AppCompatActivity {
         actions.parseConnection(Register.this);
 
         register_etxtFullName = (EditText) findViewById(R.id.register_etxtFullName);
+        register_etxtemail = (EditText) findViewById(R.id.register_etxtEmail);
         register_etxtPhone = (EditText) findViewById(R.id.register_etxtPhone);
         register_etxtAddress = (EditText) findViewById(R.id.register_etxtAddress);
         register_etxtCardNumber = (EditText) findViewById(R.id.register_etxtCardNumber);
-        register_etxtemail = (EditText) findViewById(R.id.register_etxtEmail);
         register_etxtPassword = (EditText) findViewById(R.id.register_etxtPassword);
         register_etxtConfirmPassword = (EditText) findViewById(R.id.register_etxtConfirmPassword);
         button_register = (Button) findViewById(R.id.button_register);
@@ -53,6 +53,7 @@ public class Register extends AppCompatActivity {
 //
                     if (register_etxtPassword.getText().toString().equals(register_etxtConfirmPassword.getText().toString())){
                         actions.parseConnection(Register.this);
+                        Log.e("QuyenApplication",register_etxtemail.getText().toString());
                         boolean re = actions.register(Register.this,
                                 register_etxtFullName.getText().toString(),
                                 register_etxtPassword.getText().toString(),
