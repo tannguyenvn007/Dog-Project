@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.LogInCallback;
 
@@ -15,7 +16,11 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.RequestPasswordResetCallback;
 import com.parse.SignUpCallback;
+
+import java.util.List;
+
 
 public class Actions {
     public void parseConnection(Context context) {
@@ -27,12 +32,13 @@ public class Actions {
         );
     }
 
-    public int login(final Context context, String username, String password){
+    public int login(final Context context, final String username, String password){
 
         ParseUser.logInInBackground(username, password, new LogInCallback() {
             public void done(ParseUser user, ParseException e) {
                 if (user != null) {
                     Intent i = new Intent(context, MainActivity.class);
+                    i.putExtra("username",username);
                     context.startActivity(i);
                     ((Activity)context).finish();
                 } else {
@@ -43,7 +49,7 @@ public class Actions {
         return 0;
     }
 
-    public boolean register(final Context context, final String username, final String password, String phone, String indentifyCartNumber , String confirmPassword, String address){
+    public boolean register(final Context context, final String username, final String password, String phone, String indentifyCartNumber , String confirmPassword, String address,String email){
         ParseUser user = new ParseUser();
         user.setUsername(username);
         user.setPassword(password);
@@ -51,6 +57,7 @@ public class Actions {
         user.put("address", address);
         user.put("phone", phone);
         user.put("confirmPassword", confirmPassword);
+        user.setEmail(email);
 
         user.signUpInBackground(new SignUpCallback() {
             public void done(ParseException e) {
@@ -113,17 +120,21 @@ public class Actions {
         return true;
     }
 
-    public void getUsers(Context context, String objectID){
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("User");
-
-        query.getInBackground(objectID, new GetCallback<ParseObject>() {
-            public void done(ParseObject result, ParseException e) {
+    public void passwordReset(final Context context, String email) {
+        // An e-mail will be sent with further instructions
+        ParseUser.requestPasswordResetInBackground(email, new RequestPasswordResetCallback() {
+            public void done(ParseException e) {
                 if (e == null) {
-                    System.out.println(result);
+                    Toast.makeText(context,"Kiem tra thu email",Toast.LENGTH_SHORT).show();
+                    ((Activity)context).finish();
                 } else {
-                    // something went wrong
+                    // Something went wrong. Look at the ParseException to see what's up.
+                    Toast.makeText(context,"deo fui dc",Toast.LENGTH_SHORT).show();
+                    Log.e("userssss", String.valueOf(e));
                 }
             }
         });
     }
+
+
 }

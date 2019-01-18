@@ -23,14 +23,20 @@ public class TopUpWalletActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                Intent intent = getIntent();
+                String username = intent.getStringExtra("username");
                 switch (menuItem.getItemId()){
                     case R.id.navigation_home:
                         Intent i = new Intent(TopUpWalletActivity.this,MainActivity.class);
+                        i.putExtra("username",username);
                         startActivity(i);
+                        finish();
                         break;
                     case R.id.navigation_history:
                         Intent a = new Intent(TopUpWalletActivity.this,History.class);
+                        a.putExtra("username",username);
                         startActivity(a);
+                        finish();
                         break;
                     case R.id.navigation_wallet:
                         break;

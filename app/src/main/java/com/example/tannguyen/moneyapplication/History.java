@@ -22,17 +22,22 @@ public class History extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                Intent intent = getIntent();
+                String username = intent.getStringExtra("username");
                 switch (menuItem.getItemId()){
                     case R.id.navigation_home:
                         Intent i = new Intent(History.this,MainActivity.class);
+                        i.putExtra("username",username);
                         startActivity(i);
+                        finish();
                         break;
                     case R.id.navigation_history:
-
                         break;
                     case R.id.navigation_wallet:
                         Intent a = new Intent(History.this,TopUpWalletActivity.class);
+                        a.putExtra("username",username);
                         startActivity(a);
+                        finish();
                         break;
 
                 }
