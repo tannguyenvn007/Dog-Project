@@ -22,6 +22,8 @@ import com.parse.SignUpCallback;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
+
 
 public class Actions {
     public ArrayList<HistoryAct> mData = new ArrayList<>();
@@ -87,15 +89,25 @@ public class Actions {
     }
 
     boolean saveToken(Context context, String TOKEN){
-        SharedPreferences pref = context.getSharedPreferences("auth", context.MODE_PRIVATE);
+        SharedPreferences pref = context.getSharedPreferences("auth", MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putString("token", TOKEN);
         editor.commit();
         return true;
     }
+    boolean rememberMe(Context context, String user, String pass)
+    {
+        SharedPreferences pref = context.getSharedPreferences("savetoken",MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("username",user)
+                .putString("Password",pass)
+                .commit();
+
+        return true;
+    }
 
     boolean removeToken(Context context){
-        SharedPreferences pref = context.getSharedPreferences("auth",context.MODE_PRIVATE);
+        SharedPreferences pref = context.getSharedPreferences("auth",MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.clear();
         editor.commit();
@@ -109,7 +121,7 @@ public class Actions {
     }
 
     boolean getTokenAuthencation (Context context){
-        SharedPreferences pref = context.getSharedPreferences("auth", context.MODE_PRIVATE);
+        SharedPreferences pref = context.getSharedPreferences("auth", MODE_PRIVATE);
         if(!pref.getString("token","").equals("")){
             Intent homepage = new Intent(context, MainActivity.class);
             context.startActivity(homepage);
