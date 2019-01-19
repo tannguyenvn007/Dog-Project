@@ -35,7 +35,7 @@ public class HistoryUser extends AppCompatActivity {
 
         Intent intent = getIntent();
         String email = intent.getStringExtra("email");
-
+        Log.e("asadasd",email);
 
         getUsers(HistoryUser.this,email);
 
@@ -44,20 +44,21 @@ public class HistoryUser extends AppCompatActivity {
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
         query.whereEqualTo("email", email);
+        Log.e("asadasd",email);
         query.getFirstInBackground(new GetCallback<ParseObject>() {
             public void done(ParseObject user, ParseException e) {
                 if (e == null) {
-                    String name = user.getString("username");
+                    String name = user.getString("fullName");
                     String email = user.getString("email");
                     String phone = user.getString("phone");
                     String address =  user.getString("address");
                     String cardNumber = user.getString("indentifyCartNumber");
 
                     txtName.setText(name);
-                    txtEmail.setText(email);
+                    txtEmail.setText("Email: "+email);
                     txtPhone.setText(phone);
-                    txtAddress.setText(address);
-                    txtCardNumber.setText(cardNumber);
+                    txtAddress.setText("Address: "+address);
+                    txtCardNumber.setText("PID: "+cardNumber);
 
                 } else {
                     Toast.makeText(context,"eo zo ddwoc.",Toast.LENGTH_SHORT).show();

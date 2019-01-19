@@ -49,11 +49,11 @@ public class Actions {
         return 0;
     }
 
-    public boolean register(final Context context, String username, final String password, String phone, String indentifyCartNumber , String confirmPassword, String address,final String email){
+    public boolean register(final Context context, String fullName, final String password, String phone, String indentifyCartNumber , String confirmPassword, String address,final String email){
         ParseUser user = new ParseUser();
         user.setEmail(email);
         user.setPassword(password);
-        user.put("username",username);
+        user.put("fullName",fullName);
         user.put("indentifyCartNumber", indentifyCartNumber);
         user.put("address", address);
         user.put("phone", phone);

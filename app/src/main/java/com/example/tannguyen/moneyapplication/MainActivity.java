@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 Intent intent = getIntent();
                 String email = intent.getStringExtra("email");
+                Log.e("asadasd",email);
                 switch (menuItem.getItemId()){
                     case R.id.navigation_home:
                         break;

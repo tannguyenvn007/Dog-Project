@@ -7,14 +7,6 @@
     tools:context=".Register"
     android:background="@mipmap/back"
     >
-
-    <!--<ImageView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:src="@mipmap/tutor"-->
-        <!--android:layout_gravity="center"-->
-        <!--style="@style/logo_register"-->
-        <!--/>-->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
