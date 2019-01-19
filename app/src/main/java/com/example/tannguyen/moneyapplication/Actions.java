@@ -19,10 +19,14 @@ import com.parse.ParseUser;
 import com.parse.RequestPasswordResetCallback;
 import com.parse.SignUpCallback;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 public class Actions {
+    public ArrayList<HistoryAct> mData = new ArrayList<>();
     public void parseConnection(Context context) {
         Parse.initialize(new Parse.Configuration.Builder(context)
                 .applicationId("n5k0cNPdmW1kLFInNlKdoGusTJ5WE9Gg6nL8uc3R")
@@ -85,15 +89,25 @@ public class Actions {
     }
 
     boolean saveToken(Context context, String TOKEN){
-        SharedPreferences pref = context.getSharedPreferences("auth", context.MODE_PRIVATE);
+        SharedPreferences pref = context.getSharedPreferences("auth", MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putString("token", TOKEN);
         editor.commit();
         return true;
     }
+    boolean rememberMe(Context context, String user, String pass)
+    {
+        SharedPreferences pref = context.getSharedPreferences("savetoken",MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("username",user)
+                .putString("Password",pass)
+                .commit();
+
+        return true;
+    }
 
     boolean removeToken(Context context){
-        SharedPreferences pref = context.getSharedPreferences("auth",context.MODE_PRIVATE);
+        SharedPreferences pref = context.getSharedPreferences("auth",MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.clear();
         editor.commit();
@@ -107,13 +121,13 @@ public class Actions {
     }
 
     boolean getTokenAuthencation (Context context){
-        SharedPreferences pref = context.getSharedPreferences("auth", context.MODE_PRIVATE);
+        SharedPreferences pref = context.getSharedPreferences("auth", MODE_PRIVATE);
         if(!pref.getString("token","").equals("")){
             Intent homepage = new Intent(context, MainActivity.class);
             context.startActivity(homepage);
             ((Activity)context).finish();
         }else {
-            Toast.makeText(context,"Phiên làm việc đã hết hạn. Đăng nhập lại.",Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,"Welcome to login",Toast.LENGTH_SHORT).show();
         }
         return true;
     }
@@ -131,6 +145,30 @@ public class Actions {
                 }
             }
         });
+    }
+
+    public ArrayList<HistoryAct> readObject() {
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        Log.i("username", currentUser.getEmail());
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("history");
+        query.whereEqualTo("userEmail",currentUser.getEmail());
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> objects, ParseException e) {
+                if (e == null) {
+                    for (int i = 0; i < objects.size(); i++) {
+                        HistoryAct history = new HistoryAct();
+                        history.setAddress(String.valueOf(objects.get(i).get("Address")));
+                        history.setMoney(String.valueOf(objects.get(i).get("totalMoney")));
+                        history.setAddress(String.valueOf(objects.get(i).getCreatedAt()));
+                        mData.add(history);
+                        Log.i("usernamess1", ""+mData);
+                    }
+                } else {
+                    System.out.println(e);
+                }
+            }});
+        Log.i("username1", mData.toString());
+        return mData;
     }
 
 

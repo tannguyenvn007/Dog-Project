@@ -6,15 +6,30 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
+
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class History extends AppCompatActivity {
+    ListView mListView;
+    ArrayList<HistoryAct> mData = new ArrayList<>();
+    int position;
+    ListAdapter adapter;
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_histories);
-
+        mListView = (ListView)findViewById(R.id.history_listview);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         Menu menu = navigation.getMenu();
         MenuItem menuItem = menu.getItem(1);
@@ -44,5 +59,35 @@ public class History extends AppCompatActivity {
                 return false;
             }
         });
+
+        Actions actions = new Actions();
+        actions.parseConnection(History.this);
+
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        Log.i("username", currentUser.getEmail());
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("history");
+        Log.i("usernamess1", "Wait");
+        query.whereEqualTo("userEmail",currentUser.getEmail());
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> objects, ParseException e) {
+                if (e == null) {
+                    for (int i = 0; i < objects.size(); i++) {
+                        HistoryAct history = new HistoryAct();
+                        history.setAddress(String.valueOf(objects.get(i).get("Address")));
+                        history.setMoney(String.valueOf(objects.get(i).get("totalMoney")));
+                        history.setTime(String.valueOf(objects.get(i).getCreatedAt()));
+                        mData.add(history);
+                    }
+                } else {
+                    System.out.println(e);
+                }
+                adapter = new ListAdapter(History.this, mData);
+                mListView.setAdapter(adapter);
+
+
+            }});
+
+
+
     }
 }

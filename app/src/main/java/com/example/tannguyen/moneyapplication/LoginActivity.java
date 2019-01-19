@@ -8,6 +8,7 @@ import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,6 +44,9 @@ public class LoginActivity extends Activity {
                     Toast.makeText(LoginActivity.this, "All of filed is required", Toast.LENGTH_SHORT).show();
                 }else {
                     actions.parseConnection(LoginActivity.this);
+                    CheckBox ch=(CheckBox)findViewById(R.id.remember_me);
+                    if(ch.isChecked()){
+                        actions.rememberMe(LoginActivity.this, email.getText().toString(), password.getText().toString());}//save username and password
                     int login = actions.login(LoginActivity.this, email.getText().toString(), password.getText().toString());
                 }
             }
