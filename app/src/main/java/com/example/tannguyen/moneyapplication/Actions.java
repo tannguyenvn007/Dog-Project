@@ -32,13 +32,13 @@ public class Actions {
         );
     }
 
-    public int login(final Context context, final String email, String password){
+    public int login(final Context context, final String username, String password){
 
-        ParseUser.logInInBackground(email, password, new LogInCallback() {
+        ParseUser.logInInBackground(username, password, new LogInCallback() {
             public void done(ParseUser user, ParseException e) {
                 if (user != null) {
                     Intent i = new Intent(context, MainActivity.class);
-                    i.putExtra("email",email);
+                    i.putExtra("email",username);
                     context.startActivity(i);
                     ((Activity)context).finish();
                 } else {
@@ -49,8 +49,10 @@ public class Actions {
         return 0;
     }
 
-    public boolean register(final Context context, String fullName, final String password, String phone, String indentifyCartNumber , String confirmPassword, String address,final String email){
+    public boolean register(final Context context, String fullName, final String password, String phone, String indentifyCartNumber , String confirmPassword, String address,final String email, final String username){
+        Log.e("QuyenApplication",email + " " +fullName );
         ParseUser user = new ParseUser();
+        user.setUsername(username);
         user.setEmail(email);
         user.setPassword(password);
         user.put("fullName",fullName);
@@ -62,10 +64,9 @@ public class Actions {
             public void done(ParseException e) {
                 if (e == null) {
                     Toast.makeText(context,"Register successful",Toast.LENGTH_SHORT).show();
-                    login(context, email, password);
+                    login(context, username, password);
                 } else {
-                    System.out.print("Failed");
-                    Toast.makeText(context,"Email was existed. Please try again",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,"Email or UserName was existed. Please try again",Toast.LENGTH_SHORT).show();
                 }
             }
         });

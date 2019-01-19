@@ -19,7 +19,7 @@ import com.parse.SignUpCallback;
 public class Register extends AppCompatActivity {
 
     Actions actions = new Actions();
-    EditText register_etxtFullName, register_etxtemail, register_etxtPhone,register_etxtAddress, register_etxtCardNumber, register_etxtPassword, register_etxtConfirmPassword  ;
+    EditText register_etxtFullName, register_etxtemail, register_etxtPhone,register_etxtAddress, register_etxtCardNumber, register_etxtUsername,register_etxtPassword, register_etxtConfirmPassword  ;
     Button button_register;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +35,7 @@ public class Register extends AppCompatActivity {
         register_etxtPassword = (EditText) findViewById(R.id.register_etxtPassword);
         register_etxtConfirmPassword = (EditText) findViewById(R.id.register_etxtConfirmPassword);
         button_register = (Button) findViewById(R.id.button_register);
+        register_etxtUsername = (EditText) findViewById(R.id.register_etxtUsername);
 
 
         button_register.setOnClickListener(new View.OnClickListener() {
@@ -47,13 +48,15 @@ public class Register extends AppCompatActivity {
                         || register_etxtCardNumber.getText().toString().equals("")
                         || register_etxtPassword.getText().toString().equals("")
                         || register_etxtConfirmPassword.getText().toString().equals("")
-                        || register_etxtemail.getText().toString().equals("")){
+                        || register_etxtemail.getText().toString().equals("")
+                        || register_etxtUsername.getText().toString().equals("")
+                        ){
                     Toast.makeText(Register.this,"All of filed is required.",Toast.LENGTH_SHORT).show();
                 }else {
 //
                     if (register_etxtPassword.getText().toString().equals(register_etxtConfirmPassword.getText().toString())){
                         actions.parseConnection(Register.this);
-                        Log.e("QuyenApplication",register_etxtemail.getText().toString());
+                        Log.e("QuyenApplication",register_etxtemail.getText().toString()+" "+ register_etxtFullName.getText().toString());
                         boolean re = actions.register(Register.this,
                                 register_etxtFullName.getText().toString(),
                                 register_etxtPassword.getText().toString(),
@@ -61,13 +64,15 @@ public class Register extends AppCompatActivity {
                                 register_etxtCardNumber.getText().toString(),
                                 register_etxtConfirmPassword.getText().toString(),
                                 register_etxtAddress.getText().toString(),
-                                register_etxtemail.getText().toString());
+                                register_etxtemail.getText().toString(),
+                                register_etxtUsername.getText().toString()
+                        );
 
 
                         if (re){
-                            Log.i("QuyenApplication", "Okkk");
+                            Log.e("QuyenApplication", "Okkk");
                         }else {
-                            Log.i("QuyenApplication", "Failde");
+                            Log.e("QuyenApplication", "Failde");
 
                         }
                     }else {

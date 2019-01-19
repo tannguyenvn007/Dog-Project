@@ -16,7 +16,7 @@ public class LoginActivity extends Activity {
     Button btnRegister,btnLogin;
     TextView txtForgotPass;
     Actions actions = new Actions();
-    EditText email, password;
+    EditText username, password;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +25,7 @@ public class LoginActivity extends Activity {
         btnRegister = (Button) findViewById(R.id.login_btnRegister);
         btnLogin = (Button) findViewById(R.id.login_btnLogin);
         txtForgotPass = (TextView) findViewById(R.id.login_txtForgotPass);
-        email = (EditText) findViewById(R.id.login_Email);
+        username = (EditText) findViewById(R.id.login_Email);
         password = (EditText) findViewById(R.id.login_password);
 
 
@@ -39,11 +39,11 @@ public class LoginActivity extends Activity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (email.getText().toString().equals("") || password.getText().toString().equals("")){
+                if (username.getText().toString().equals("") || password.getText().toString().equals("")){
                     Toast.makeText(LoginActivity.this, "All of filed is required", Toast.LENGTH_SHORT).show();
                 }else {
                     actions.parseConnection(LoginActivity.this);
-                    int login = actions.login(LoginActivity.this, email.getText().toString(), password.getText().toString());
+                    int login = actions.login(LoginActivity.this, username.getText().toString(), password.getText().toString());
                 }
             }
         });

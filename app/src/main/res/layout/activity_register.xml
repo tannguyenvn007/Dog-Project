@@ -13,7 +13,7 @@
         android:text="Register"
         android:layout_gravity="center"
         android:textColor="@color/white"
-        android:textSize="30dp"
+        android:textSize="20dp"
         android:textStyle="bold"
         />
     <EditText
@@ -55,6 +55,14 @@
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:hint="Your Email"
+        android:background="@drawable/boderradius_blue"
+        style="@style/register"
+        />
+    <EditText
+        android:id="@+id/register_etxtUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="UserName"
         android:background="@drawable/boderradius_blue"
         style="@style/register"
         />
