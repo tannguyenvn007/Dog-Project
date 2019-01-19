@@ -34,16 +34,16 @@ public class HistoryUser extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        String username = intent.getStringExtra("username");
+        String email = intent.getStringExtra("email");
 
 
-        getUsers(HistoryUser.this,username);
+        getUsers(HistoryUser.this,email);
 
     }
-    public void getUsers(final Context context, String username){
+    public void getUsers(final Context context, String email){
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
-        query.whereEqualTo("username", username);
+        query.whereEqualTo("email", email);
         query.getFirstInBackground(new GetCallback<ParseObject>() {
             public void done(ParseObject user, ParseException e) {
                 if (e == null) {

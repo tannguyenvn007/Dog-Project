@@ -63,18 +63,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 Intent intent = getIntent();
-                String username = intent.getStringExtra("username");
+                String email = intent.getStringExtra("email");
                 switch (menuItem.getItemId()){
                     case R.id.navigation_home:
                         break;
                     case R.id.navigation_history:
                         Intent a = new Intent(MainActivity.this,History.class);
-                        a.putExtra("username",username);
+                        a.putExtra("email",email);
                         startActivity(a);
                         break;
                     case R.id.navigation_wallet:
                         Intent i = new Intent(MainActivity.this,TopUpWalletActivity.class);
-                        i.putExtra("username",username);
+                        i.putExtra("email",email);
                         startActivity(i);
                         break;
                 }
@@ -82,8 +82,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         Intent intent = getIntent();
-        String username = intent.getStringExtra("username");
-        inputValue = username.toString().trim();
+        String email = intent.getStringExtra("email");
+        inputValue = email.toString().trim();
         File f = new File(savePath+inputValue+".jpg");
         if (f.isFile()){
             qrImage.setImageURI(Uri.parse(savePath+inputValue+".jpg"));
@@ -100,8 +100,8 @@ public class MainActivity extends AppCompatActivity {
                 boolean save;
                 String result;
                 Intent intent = getIntent();
-                String username = intent.getStringExtra("username");
-                inputValue = username.toString().trim();
+                String email = intent.getStringExtra("email");
+                inputValue = email.toString().trim();
                 if (inputValue.length() > 0){
                     WindowManager manager = (WindowManager) getSystemService(WINDOW_SERVICE);
                     Display display = manager.getDefaultDisplay();
@@ -142,11 +142,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent = getIntent();
-        String username = intent.getStringExtra("username");
+        String email = intent.getStringExtra("email");
         switch (item.getItemId()){
             case R.id.menProfile:
                 Intent i = new Intent(MainActivity.this, HistoryUser.class);
-                i.putExtra("username",username);
+                i.putExtra("email",email);
                 startActivity(i);
                 break;
             case R.id.menuSetting:

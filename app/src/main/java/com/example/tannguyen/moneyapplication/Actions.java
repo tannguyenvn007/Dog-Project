@@ -32,13 +32,13 @@ public class Actions {
         );
     }
 
-    public int login(final Context context, final String username, String password){
+    public int login(final Context context, final String email, String password){
 
-        ParseUser.logInInBackground(username, password, new LogInCallback() {
+        ParseUser.logInInBackground(email, password, new LogInCallback() {
             public void done(ParseUser user, ParseException e) {
                 if (user != null) {
                     Intent i = new Intent(context, MainActivity.class);
-                    i.putExtra("username",username);
+                    i.putExtra("email",email);
                     context.startActivity(i);
                     ((Activity)context).finish();
                 } else {
@@ -49,25 +49,23 @@ public class Actions {
         return 0;
     }
 
-    public boolean register(final Context context, final String username, final String password, String phone, String indentifyCartNumber , String confirmPassword, String address,String email){
+    public boolean register(final Context context, String username, final String password, String phone, String indentifyCartNumber , String confirmPassword, String address,final String email){
         ParseUser user = new ParseUser();
-        user.setUsername(username);
+        user.setEmail(email);
         user.setPassword(password);
+        user.put("username",username);
         user.put("indentifyCartNumber", indentifyCartNumber);
         user.put("address", address);
         user.put("phone", phone);
         user.put("confirmPassword", confirmPassword);
-        user.setEmail(email);
-
         user.signUpInBackground(new SignUpCallback() {
             public void done(ParseException e) {
                 if (e == null) {
-                    System.out.print("Ok");
-                    Log.i("QuyenApplication", "Oki");
-                    login(context, username, password);
+                    Toast.makeText(context,"Register successful",Toast.LENGTH_SHORT).show();
+                    login(context, email, password);
                 } else {
                     System.out.print("Failed");
-                    Log.i("QuyenApplication", "Notoki");
+                    Toast.makeText(context,"Email was existed. Please try again",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -130,7 +128,6 @@ public class Actions {
                 } else {
                     // Something went wrong. Look at the ParseException to see what's up.
                     Toast.makeText(context,"deo fui dc",Toast.LENGTH_SHORT).show();
-                    Log.e("userssss", String.valueOf(e));
                 }
             }
         });
