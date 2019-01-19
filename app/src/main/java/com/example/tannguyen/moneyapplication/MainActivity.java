@@ -156,7 +156,6 @@ public class MainActivity extends AppCompatActivity {
                 final String user = actions.currentUser(MainActivity.this);
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
                 alertDialogBuilder.setTitle("Are you sure you want to log out? - "+ user);
-                alertDialogBuilder.setMessage("Your session will be destroyed after logout on this application.");
                 alertDialogBuilder.setCancelable(false);
                 alertDialogBuilder
                         .setPositiveButton("Logout", new DialogInterface.OnClickListener() {
@@ -168,12 +167,6 @@ public class MainActivity extends AppCompatActivity {
                                    startActivity(i);
                                    finish();
                                }
-                            }
-                        })
-                        .setNegativeButton("Discard", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                return;
                             }
                         })
                         .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {

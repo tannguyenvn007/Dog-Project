@@ -19,10 +19,12 @@ import com.parse.ParseUser;
 import com.parse.RequestPasswordResetCallback;
 import com.parse.SignUpCallback;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class Actions {
+    public ArrayList<HistoryAct> mData = new ArrayList<>();
     public void parseConnection(Context context) {
         Parse.initialize(new Parse.Configuration.Builder(context)
                 .applicationId("n5k0cNPdmW1kLFInNlKdoGusTJ5WE9Gg6nL8uc3R")
@@ -113,7 +115,7 @@ public class Actions {
             context.startActivity(homepage);
             ((Activity)context).finish();
         }else {
-            Toast.makeText(context,"Phiên làm việc đã hết hạn. Đăng nhập lại.",Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,"Welcome to login",Toast.LENGTH_SHORT).show();
         }
         return true;
     }
@@ -131,6 +133,30 @@ public class Actions {
                 }
             }
         });
+    }
+
+    public ArrayList<HistoryAct> readObject() {
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        Log.i("username", currentUser.getEmail());
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("history");
+        query.whereEqualTo("userEmail",currentUser.getEmail());
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> objects, ParseException e) {
+                if (e == null) {
+                    for (int i = 0; i < objects.size(); i++) {
+                        HistoryAct history = new HistoryAct();
+                        history.setAddress(String.valueOf(objects.get(i).get("Address")));
+                        history.setMoney(String.valueOf(objects.get(i).get("totalMoney")));
+                        history.setAddress(String.valueOf(objects.get(i).getCreatedAt()));
+                        mData.add(history);
+                        Log.i("usernamess1", ""+mData);
+                    }
+                } else {
+                    System.out.println(e);
+                }
+            }});
+        Log.i("username1", mData.toString());
+        return mData;
     }
 
 
